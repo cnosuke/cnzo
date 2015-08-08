@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    dotfile (0.2.3)
     kgio (2.9.3)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -20,6 +21,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotfile
   sinatra
   unicorn
 
