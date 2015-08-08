@@ -38,7 +38,7 @@ COPY server_config/bashrc_rbenv /tmp/
 RUN cat /tmp/bashrc_rbenv > ~/.bashrc
 RUN echo '2.2.2' > ~/.ruby-version
 
-RUN mkdir -p /app
+RUN mkdir -p /app /data
 ADD app /app
 COPY server_config/.env /app/.env
 RUN cd /app && RBENV_ROOT=~/.rbenv RBENV_VERSION=2.2.2 ~/.rbenv/bin/rbenv exec gem install bundler
