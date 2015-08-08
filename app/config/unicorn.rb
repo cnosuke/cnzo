@@ -10,7 +10,7 @@ working_directory app_path
 pid "#{app_path}/tmp/unicorn.pid"
 
 # listen
-listen 3333, :tcp_nopush => true
+listen 8080, :tcp_nopush => true
 
 # logging
 stderr_path "#{app_path}/log/unicorn.stderr.log"

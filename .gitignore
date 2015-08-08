@@ -21,3 +21,5 @@ config/secrets.yml
 /vendor/bundle
 
 .env
+password.txt
+data/
