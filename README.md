@@ -21,3 +21,9 @@ Authorized `key` parameters should be set on `AUTHORIZE_KEY` ENV of `.env`.
 ```
 
 If you're using reverse proxy like nginx, bind your server port like `-p 8080:8080` and write proxy settings in your nginx cofigs.
+
+## LICENSE
+
+MIT License
+
+Copyright (C) 2015 Shinnosuke Takeda (cnosuke)
