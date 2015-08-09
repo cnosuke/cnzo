@@ -4,6 +4,7 @@ require 'dotenv'
 Dotenv.load
 
 require 'digest/md5'
+require './s3_uploader'
 
 error 403 do
   "Access forbidden\n"
@@ -20,15 +21,18 @@ end
 post '/upload' do
   return 403 unless authorize params['key']
   id = params['id']
-  imagedata = params['imagedata'][:tempfile].read
-  hash = Digest::MD5.hexdigest(imagedata)
+  image_file = params['imagedata'][:tempfile]
+  hash = Digest::MD5.hexdigest(image_file.read)
+  image_file.seek(IO::SEEK_SET)
 
   ext = params['ext'] || 'png'
   exit unless ['png','gif','jpg'].include?(ext)
 
   fname = "#{hash}.#{ext}"
-  File.open("../data/#{fname}","w").print(imagedata)
+  s3key = "d/#{fname}"
+  S3Uploader.put(s3key, image_file)
+
   status 200
   headers 'X-Gyazo-Id' => '000'
-  body "https://img.cnosuke.com/d/#{hash}.#{ext}"
+  body "https://img.cnosuke.com/#{s3key}"
 end
