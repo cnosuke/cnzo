@@ -39,10 +39,13 @@ RUN cat /tmp/bashrc_rbenv > ~/.bashrc
 RUN echo '2.2.2' > ~/.ruby-version
 
 RUN mkdir -p /app /data
+COPY app/Gemfile /app/Gemfile
+COPY app/Gemfile.lock /app/Gemfile.lock
+RUN cd /app && RBENV_ROOT=~/.rbenv RBENV_VERSION=2.2.2 ~/.rbenv/bin/rbenv exec gem install bundler
+RUN cd /app && RBENV_ROOT=~/.rbenv RBENV_VERSION=2.2.2 ~/.rbenv/bin/rbenv exec bundle install --without development test --deployment --quiet
+
 ADD app /app
 COPY server_config/.env /app/.env
-RUN cd /app && RBENV_ROOT=~/.rbenv RBENV_VERSION=2.2.2 ~/.rbenv/bin/rbenv exec gem install bundler
-RUN cd /app && RBENV_ROOT=~/.rbenv RBENV_VERSION=2.2.2 ~/.rbenv/bin/rbenv exec bundle install --path /app/bundle --without development test --deployment --quiet
 
 EXPOSE 8080
 CMD ["/app/run_on_docker.sh"]
