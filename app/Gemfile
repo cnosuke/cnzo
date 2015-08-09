@@ -4,3 +4,6 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'unicorn'
 gem 'dotenv'
+gem 'aws-sdk'
+
+gem 'pry'
