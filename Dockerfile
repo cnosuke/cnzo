@@ -7,7 +7,6 @@ COPY app/Gemfile.lock /app/Gemfile.lock
 RUN cd /app && bundle install --without development test --deployment --quiet
 
 ADD app /app
-COPY server_config/env /app/.env
 
 EXPOSE 8080
 CMD ["/app/run_on_docker.sh"]
