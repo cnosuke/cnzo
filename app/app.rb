@@ -6,6 +6,12 @@ Dotenv.load
 require 'digest/md5'
 require './s3_uploader'
 
+EXT_WHITELIST = %w(
+  png
+  gif
+  jpg
+).inject([]){ |m,x| m.push(x,x.upcase) }
+
 error 403 do
   "Access forbidden\n"
 end
@@ -26,7 +32,7 @@ post '/upload' do
   image_file.seek(IO::SEEK_SET)
 
   ext = params['ext'] || 'png'
-  exit unless ['png','gif','jpg'].include?(ext)
+  exit unless EXT_WHITELIST.include?(ext)
 
   fname = "#{hash}.#{ext}"
   s3key = "d/#{fname}"
