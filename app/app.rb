@@ -6,6 +6,8 @@ Dotenv.load
 require 'digest/md5'
 require './s3_uploader'
 
+HOST = 'img.cnosuke.com'
+
 EXT_WHITELIST = %w(
   png
   gif
@@ -40,5 +42,5 @@ post '/upload' do
 
   status 200
   headers 'X-Gyazo-Id' => '000'
-  body "https://img.cnosuke.com/#{s3key}"
+  body "https://#{HOST}/#{s3key}"
 end
