@@ -1,4 +1,4 @@
-FROM cnosuke/ruby22-base
+FROM cnosuke/ruby23-base
 MAINTAINER cnosuke
 
 RUN mkdir -p /app /data
@@ -8,5 +8,6 @@ RUN cd /app && bundle install --without development test --deployment --quiet
 
 ADD app /app
 
+WORKDIR /app
 EXPOSE 8080
-CMD ["/app/run_on_docker.sh"]
+CMD ["bundle", "exec", "unicorn", "-E", "production", "-c", "config/unicorn.rb"]

@@ -10,7 +10,7 @@ working_directory app_path
 pid "#{app_path}/tmp/unicorn.pid"
 
 # listen
-listen 8080, :tcp_nopush => true
+listen ENV['SINATRA_UNIX_SOCKET']
 
 # logging
 stderr_path "#{app_path}/log/unicorn.stderr.log"

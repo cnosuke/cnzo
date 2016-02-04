@@ -1,7 +1,5 @@
 require 'sinatra'
 require "sinatra/reloader" if development?
-require 'dotenv'
-Dotenv.load
 
 require 'digest/md5'
 require './s3_uploader'

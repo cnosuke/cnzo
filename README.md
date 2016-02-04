@@ -17,7 +17,7 @@ Authorized `key` parameters should be set on `AUTHORIZE_KEY` ENV of `.env`.
 
 ```
 % docker build -t cnzo .
-% docker run -d -p 80:8080 cnzo
+% docker run -d -e SINATRA_UNIX_SOCKET=foo.sock cnzo
 ```
 
 If you're using reverse proxy like nginx, bind your server port like `-p 8080:8080` and write proxy settings in your nginx cofigs.
