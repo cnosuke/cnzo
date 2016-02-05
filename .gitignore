@@ -24,3 +24,5 @@ config/secrets.yml
 env
 password.txt
 data/
+
+dot_env
