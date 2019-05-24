@@ -28,7 +28,7 @@ get '/' do
 end
 
 post '/upload' do
-  return 403 unless authorize(request.env['HTTP_X_FAZO_TOKEN'])
+  return 403 unless authorize(request.env['HTTP_X_CNZO_TOKEN'])
 
   image_file = params['image_file'][:tempfile]
   hash = Digest::MD5.hexdigest(image_file.read)
