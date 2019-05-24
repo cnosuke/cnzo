@@ -1,4 +1,4 @@
-FROM cnosuke/ruby23-base
+FROM ruby:2.5.1
 MAINTAINER cnosuke
 
 RUN mkdir -p /app /data
@@ -10,4 +10,7 @@ ADD app /app
 
 WORKDIR /app
 EXPOSE 8080
+ENV APP_PATH /app
+ENV AWS_REGION ap-northeast-1
+ENV SINATRA_LISTEN 0.0.0.0:8080
 CMD ["bundle", "exec", "unicorn", "-E", "production", "-c", "config/unicorn.rb"]

@@ -10,7 +10,7 @@ working_directory app_path
 pid "#{app_path}/tmp/unicorn.pid"
 
 # listen
-listen ENV['SINATRA_UNIX_SOCKET']
+listen ENV['SINATRA_LISTEN']
 
 # logging
 stderr_path "#{app_path}/log/unicorn.stderr.log"
@@ -28,12 +28,6 @@ end
 preload_app true
 
 before_fork do |server, worker|
-  # the following is highly recomended for Rails + "preload_app true"
-  # as there's no need for the master process to hold a connection
-  if defined?(ActiveRecord::Base)
-    ActiveRecord::Base.connection.disconnect!
-  end
-
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
   old_pid = "#{server.config[:pid]}.oldbin"
@@ -43,12 +37,6 @@ before_fork do |server, worker|
     rescue Errno::ENOENT, Errno::ESRCH
       # someone else did our job for us
     end
-  end
-end
-
-after_fork do |server, worker|
-  if defined?(ActiveRecord::Base)
-    ActiveRecord::Base.establish_connection
   end
 end
 
